@@ -1,0 +1,33 @@
+{{#recipe}}
+  <h2>Ingredients for {{name}}</h2>
+
+  <ul>
+  {{#ingredients}}
+    <li>
+      {{amount}} {{measure}} {{ingredient}}
+    </li>
+  {{/ingredients}}
+  </ul>
+
+  <form action="/{{_id}}/new_ingredient/" method="POST">
+    <p>
+      <label for="amount">Amount:</label>
+      <input type="number" name="amount" />
+    </p>
+
+    <p>
+      <label for="measure">Measure:</label>
+      <input type="text" name="measure" />
+    </p>
+
+    <p>
+      <label for="ingredient">Ingredient:</label>
+      <input type="text" name="ingredient" />
+    </p>
+
+    <p>
+      <button type="submit">Add ingredient</button>
+      <a href="/{{_id}}/" class="button button-danger">Back to recipe</a>
+    </p>
+  </form>
+{{/recipe}}

@@ -1,0 +1,22 @@
+{{#recipe}}
+  <h2>Steps for {{name}}</h2>
+
+  <ol>
+  {{#steps}}
+    <li>
+      {{.}}
+    </li>
+  {{/steps}}
+</ol>
+
+  <form action="/{{_id}}/new_step/" method="POST">
+    <p>
+      <input type="text" name="step" placeholder="Add your step"/>
+    </p>
+
+    <p>
+      <button type="submit">Add step</button>
+      <a href="/{{_id}}/" class="button button-danger">Back to recipe</a>
+    </p>
+  </form>
+{{/recipe}}

@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "express-validator": "^4.1.0",
+    "mongoose": "^4.11.9",
+    "mustache-express": "^1.2.5"
+  }
+}

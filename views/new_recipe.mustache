@@ -1,0 +1,33 @@
+<h2>Add new recipe</h2>
+
+{{#errorMsg}}
+<div class="alert alert-danger">
+  {{.}}
+</div>
+{{/errorMsg}}
+
+<form action="/new/" method="POST">
+  <p>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required />
+  </p>
+
+  <p>
+    <label for="source">Source:</label>
+    <input type="text" id="source" name="source" />
+  </p>
+
+  <p>
+    <label for="prepTime">Prep time:</label>
+    <input type="number" id="prepTime" name="prepTime" />
+  </p>
+
+  <p>
+    <label for="cookTime">Cook time:</label>
+    <input type="number" id="cookTime" name="cookTime" />
+  </p>
+
+  <p>
+    <button type="submit">Add recipe</button>
+  </p>
+</form>

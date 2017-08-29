@@ -1,0 +1,41 @@
+<h1>Recipes</h1>
+
+<p>
+  <a href="/new/">Add new recipe</a>
+</p>
+
+{{#recipes}}
+  <div class="recipe">
+  <h2>
+    <a href="/{{_id}}">
+      {{name}}
+    </a>
+  </h2>
+  <dl>
+  {{#source}}
+  <dt>
+    Source
+  </dt>
+  <dd>
+    {{.}}
+  </dd>
+  {{/source}}
+  {{#prepTime}}
+  <dt>
+    Prep time
+  </dt>
+  <dd>
+    {{.}}
+  </dd>
+  {{/prepTime}}
+  {{#cookTime}}
+  <dt>
+    Cook time
+  </dt>
+  <dd>
+    {{.}}
+  </dd>
+  {{/cookTime}}
+  </dl>
+  </div>
+{{/recipes}}
