@@ -3,3 +3,21 @@
   margin: 2rem auto;
   padding: 0 1rem;
 }
+
+.recipe {
+  border: 1px solid #999;
+  margin: 1rem 0;
+  padding: 1rem;
+}
+
+.error label {
+  color: red;
+}
+
+.error input {
+  color: red;
+}
+
+.error-message {
+  color: red;
+}

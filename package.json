@@ -7,5 +7,8 @@
     "express-validator": "^4.1.0",
     "mongoose": "^4.11.9",
     "mustache-express": "^1.2.5"
+  },
+  "scripts": {
+    "start": "nodemon -e mustache,js server.js"
   }
 }

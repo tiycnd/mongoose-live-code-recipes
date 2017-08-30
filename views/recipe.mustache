@@ -2,6 +2,7 @@
 <div class="recipe">
   <h2>{{name}}</h2>
   <p>
+    <a href="/{{_id}}/edit/">Edit recipe</a> |
     <a href="/">Back to recipe list</a>
   </p>
   <dl>
@@ -66,3 +67,12 @@
   </p>
 </div>
 {{/recipe}}
+
+<h3>Other recipes from this source</h3>
+<ul>
+{{#recipesFromSameSource}}
+  <li>
+    <a href="/{{_id}}/">{{name}}</a>
+  </li>
+{{/recipesFromSameSource}}
+</ul>

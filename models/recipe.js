@@ -23,6 +23,13 @@ const recipeSchema = new mongoose.Schema({
     source: {type: String}
 })
 
+recipeSchema.methods.findRecipesFromSameSource = function (callback) {
+  return this.model('Recipe').find({
+    source: this.source,
+    _id: {$ne: this._id}
+  }, callback);
+}
+
 const Recipe = mongoose.model('Recipe', recipeSchema);
 
 module.exports = Recipe;

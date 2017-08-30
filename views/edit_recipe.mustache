@@ -1,0 +1,61 @@
+{{#recipe}}
+<h2>Edit {{name}}</h2>
+
+{{#errorMsg}}
+<div class="alert alert-danger">
+  {{.}}
+</div>
+{{/errorMsg}}
+
+<form action="/{{_id}}/edit/" method="POST">
+  <p>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" value="{{name}}" required />
+    <div>
+      {{errors.name.message}}
+    </div>
+  </p>
+
+  <p>
+    <label for="source">Source:</label>
+    <input type="text" id="source" name="source" value="{{source}}" />
+  </p>
+
+  <p class="{{#errors.prepTime}}error{{/errors.prepTime}}">
+    <label for="prepTime">Prep time:</label>
+    <input type="number" id="prepTime" name="prepTime" value="{{prepTime}}"/>
+    <div class="error-message">
+      {{errors.prepTime.message}}
+    </div>
+  </p>
+
+  <p>
+    <label for="cookTime">Cook time:</label>
+    <input type="number" id="cookTime" name="cookTime" value="{{cookTime}}"/>
+  </p>
+
+  <fieldset>
+    <legend>
+      Ingredients
+    </legend>
+
+    {{#ingredients}}
+      <p>
+        <input type="number" name="ingredients[{{index}}][amount]" value="{{amount}}" placeholder="amount" />
+        <input type="text" name="ingredients[{{index}}][measure]" value="{{measure}}" placeholder="measure" />
+        <input type="text" name="ingredients[{{index}}][ingredient]"  value="{{ingredient}}" placeholder="ingredient" />
+      </p>
+    {{/ingredients}}
+
+    <p>
+      <input type="number" name="ingredients[{{nextIngIndex}}][amount]"  placeholder="amount" />
+      <input type="text" name="ingredients[{{nextIngIndex}}][measure]"  placeholder="measure" />
+      <input type="text" name="ingredients[{{nextIngIndex}}][ingredient]"  placeholder="ingredient" />
+    </p>
+  </fieldset>
+
+  <p>
+    <button type="submit">Update recipe</button>
+  </p>
+</form>
+{{/recipe}}
