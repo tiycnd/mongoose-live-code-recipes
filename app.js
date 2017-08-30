@@ -86,48 +86,40 @@ app.post("/:id/edit/", getRecipe, function(req, res) {
 
     const error = recipe.validateSync();
 
-    if (!error) {
-        recipe.save();
-        res.redirect(`/${recipe._id}/`);
-    } else {
+    if (error) {
         addIndexToIngredients(recipe);
-        console.log(error);
+        console.log(error.errors);
         res.render("edit_recipe", {
             recipe: recipe,
             nextIngIndex: recipe.ingredients.length,
             errors: error.errors
         });
+    } else {
+        recipe.save();
+        res.redirect(`/${recipe._id}/`);
     }
-
 })
 
-app.get('/:id/new_ingredient/', function(req, res) {
-    Recipe.findOne({_id: req.params.id}).then(function(recipe) {
+app.get('/:id/new_ingredient/', getRecipe, function(req, res) {
+    res.render("new_ingredient", {recipe: req.recipe});
+})
+
+app.post('/:id/new_ingredient/', getRecipe, function(req, res) {
+    const recipe = req.recipe;
+    recipe.ingredients.push(req.body);
+    recipe.save().then(function() {
         res.render("new_ingredient", {recipe: recipe});
     })
 })
 
-app.post('/:id/new_ingredient/', function(req, res) {
-    Recipe.findOne({_id: req.params.id}).then(function(recipe) {
-        recipe.ingredients.push(req.body);
-        recipe.save().then(function() {
-            res.render("new_ingredient", {recipe: recipe});
-        })
-    })
+app.get('/:id/new_step/', getRecipe, function(req, res) {
+    res.render("new_step", {recipe: req.recipe});
 })
 
-app.get('/:id/new_step/', function(req, res) {
-    Recipe.findOne({_id: req.params.id}).then(function(recipe) {
+app.post('/:id/new_step/', getRecipe, function(req, res) {
+    recipe.steps.push(req.body.step);
+    recipe.save().then(function() {
         res.render("new_step", {recipe: recipe});
-    })
-})
-
-app.post('/:id/new_step/', function(req, res) {
-    Recipe.findOne({_id: req.params.id}).then(function(recipe) {
-        recipe.steps.push(req.body.step);
-        recipe.save().then(function() {
-            res.render("new_step", {recipe: recipe});
-        })
     })
 })
 
