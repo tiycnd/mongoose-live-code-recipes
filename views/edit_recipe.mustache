@@ -11,14 +11,14 @@
   <p>
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" value="{{name}}" required />
-    <div>
-      {{errors.name.message}}
-    </div>
   </p>
 
-  <p>
+  <p class="{{#errors.source}}error{{/errors.source}}">
     <label for="source">Source:</label>
-    <input type="text" id="source" name="source" value="{{source}}" />
+    <input type="text" id="source" name="source" value="{{source}}"/>
+    <div class="error-message">
+      {{errors.source.message}}
+    </div>
   </p>
 
   <p class="{{#errors.prepTime}}error{{/errors.prepTime}}">
@@ -29,9 +29,12 @@
     </div>
   </p>
 
-  <p>
+  <p class="{{#errors.cookTime}}error{{/errors.cookTime}}">
     <label for="cookTime">Cook time:</label>
     <input type="number" id="cookTime" name="cookTime" value="{{cookTime}}"/>
+    <div class="error-message">
+      {{errors.cookTime.message}}
+    </div>
   </p>
 
   <fieldset>
