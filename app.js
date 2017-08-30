@@ -54,10 +54,4 @@ app.get('/', function(req, res) {
     })
 })
 
-const addIndexToIngredients = function(recipe) {
-    for (let idx = 0; idx < recipe.ingredients.length; idx++) {
-        recipe.ingredients[idx].index = idx;
-    }
-}
-
 module.exports = app;

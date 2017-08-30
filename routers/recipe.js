@@ -3,6 +3,12 @@ const Recipe = require("../models/recipe");
 
 const router = express.Router({mergeParams: true});
 
+const addIndexToIngredients = function(recipe) {
+    for (let idx = 0; idx < recipe.ingredients.length; idx++) {
+        recipe.ingredients[idx].index = idx;
+    }
+}
+
 const getRecipe = function(req, res, next) {
     Recipe.findOne({_id: req.params.id}).then(function(recipe) {
         req.recipe = recipe;
@@ -24,9 +30,11 @@ router.get('/', function(req, res) {
 
 router.get('/edit/', function(req, res) {
     const recipe = req.recipe;
+    console.log(JSON.stringify(recipe.getFormData()));
     addIndexToIngredients(recipe);
     res.render("edit_recipe", {
         recipe: recipe,
+        fields: recipe.getFormData(),
         nextIngIndex: recipe.ingredients.length
     });
 })
@@ -38,7 +46,7 @@ router.post("/edit/", function(req, res) {
     recipe.prepTime = req.body.prepTime;
     recipe.cookTime = req.body.cookTime;
 
-    const ingredients = req.body.ingredients.filter(function(ingredient) {
+    const ingredients = (req.body.ingredients || []).filter(function(ingredient) {
         return (ingredient.amount || ingredient.measure || ingredient.ingredient)
     });
 
@@ -51,6 +59,7 @@ router.post("/edit/", function(req, res) {
         console.log(error.errors);
         res.render("edit_recipe", {
             recipe: recipe,
+            fields: recipe.getFormData(),
             nextIngIndex: recipe.ingredients.length,
             errors: error.errors
         });

@@ -8,57 +8,42 @@
 {{/errorMsg}}
 
 <form action="/{{_id}}/edit/" method="POST">
-  <p>
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" value="{{name}}" required />
-  </p>
-
-  <p class="{{#errors.source}}error{{/errors.source}}">
-    <label for="source">Source:</label>
-    <input type="text" id="source" name="source" value="{{source}}"/>
+  {{#fields}}
+  {{^nested}}
+  <p class="{{#error}}error{{/error}}">
+    <label for="{{name}}">{{label}}</label>
+    <input type="text" id="{{name}}" name="{{name}}" value="{{value}}" />
+    {{#error}}
     <div class="error-message">
-      {{errors.source.message}}
+      {{.}}
     </div>
+    {{/error}}
   </p>
-
-  <p class="{{#errors.prepTime}}error{{/errors.prepTime}}">
-    <label for="prepTime">Prep time:</label>
-    <input type="number" id="prepTime" name="prepTime" value="{{prepTime}}"/>
-    <div class="error-message">
-      {{errors.prepTime.message}}
-    </div>
-  </p>
-
-  <p class="{{#errors.cookTime}}error{{/errors.cookTime}}">
-    <label for="cookTime">Cook time:</label>
-    <input type="number" id="cookTime" name="cookTime" value="{{cookTime}}"/>
-    <div class="error-message">
-      {{errors.cookTime.message}}
-    </div>
-  </p>
-
+  {{/nested}}
+  {{#nested.0.0}}
   <fieldset>
     <legend>
-      Ingredients
+      {{label}}
     </legend>
-
-    {{#ingredients}}
-      <p>
-        <input type="number" name="ingredients[{{index}}][amount]" value="{{amount}}" placeholder="amount" />
-        <input type="text" name="ingredients[{{index}}][measure]" value="{{measure}}" placeholder="measure" />
-        <input type="text" name="ingredients[{{index}}][ingredient]"  value="{{ingredient}}" placeholder="ingredient" />
-      </p>
-    {{/ingredients}}
-
+    {{#nested}}
     <p>
-      <input type="number" name="ingredients[{{nextIngIndex}}][amount]"  placeholder="amount" />
-      <input type="text" name="ingredients[{{nextIngIndex}}][measure]"  placeholder="measure" />
-      <input type="text" name="ingredients[{{nextIngIndex}}][ingredient]"  placeholder="ingredient" />
+      {{#.}}
+      <input class="{{#error}}error{{/error}}" type="text" name="{{name}}[{{index}}][{{nestedname}}]" placeholder="{{nestedlabel}}" value="{{value}}" />
+      {{#error}}
+      <div class="error-message">
+        {{.}}
+      </div>
+      {{/error}}
+      {{/.}}
     </p>
+    {{/nested}}
   </fieldset>
+  {{/nested.0.0}}
+  {{/fields}}
 
   <p>
     <button type="submit">Update recipe</button>
+    <a href="/{{_id}}/" class="button button-danger">Return to recipe</a>
   </p>
 </form>
 {{/recipe}}
